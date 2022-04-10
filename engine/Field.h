@@ -2,15 +2,27 @@
 #include <vector>
 #include <iostream>
 #include "Utilities.h"
-class Field
+
+namespace engine
 {
-public:
-	Field(const int size);
-	void Redraw();
-	void Set(const engine::Coordinate &coordinate, const int &value);
+	class Field
+	{
+	public:
+		Field(const int size, int initRand);
+		void Redraw();
+		void Set(const engine::Coordinate& coordinate, const int& value);
+		engine::Coordinate TL();
+		engine::Coordinate BR();
+		std::vector<float> Flatten();
+		float At(const engine::Coordinate& coordinate);
 
-	std::vector<float> Flatten();
-private:
-	std::vector<std::vector<float>> m_field{};
-};
+	private:
+		void mazemake(std::vector<std::vector<float>>& field, int height, int width, int k, int rheight, int rwidth);
 
+		bool deadend(int x, int y, std::vector<std::vector<float>> field, int height, int width);
+
+		std::vector<std::vector<float>> m_field{};
+
+	};
+
+}
